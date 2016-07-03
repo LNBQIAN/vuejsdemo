@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>vuejs常用指令</title>
+    <style type="text/css">
+        *{margin:0;padding: 0;}
+        ol#menu{width:200px;display: block;position: fixed;height: 100%;border-right: 1px solid #ccc;padding:5px;}
+        div{margin-left: 210px;padding-left:5px; }
+        ul.pagination { display: inline-block; padding-left: 0; margin: 21px 0; border-radius: 3px;text-decoration:none; }
+ .pagination > li { display: inline; } .pagination > li > a { position: relative; float: left; padding: 6px 12px; line-height:
+1.5; text-decoration: none; color: #009a61; background-color: #fff; border: 1px solid #ddd; margin-left: -1px; list-style:
+none; } .pagination > li > a:hover { background-color: #eee; } .pagination .active { color: #fff; background-color: #009a61;
+border-left: none; border-right: none; } .pagination .active:hover { background: #009a61; cursor: default; } .pagination
+> li:first-child > a .p { border-bottom-left-radius: 3px; border-top-left-radius: 3px; } .pagination > li:last-child > a
+{ border-bottom-right-radius: 3px; border-top-right-radius: 3px; }
+    </style>
+</head>
+
+<body>
+    <ol id="menu">
+        <li><a href="#app">v-model指令</a></li>
+        <li><a href="#app-if">v-if指令</a></li>
+        <li><a href="#app-show">v-show指令</a></li>
+        <li><a href="#app-else">v-else指令</a></li>
+        <li><a href="#app-for">v-for指令</a></li>
+        <li><a href="#app-bind">v-bind指令</a></li>
+        <li><a href="#app-on">v-on指令</a></li>
+    </ol>
+    <script src="js/vue.min.js" type="text/javascript"></script>
+    <!--这是view-->
+    <div id="app" name="app">
+        <h1>1、v-model指令-双向绑定</h1>
+        {{message}}
+        <!--1、v-model指令-双向绑定-->
+        <input type="text" v-model="message"/>
+        <script type="text/javascript">
+            // 这是model
+            var model={
+                message:"hello vue.js"
+            };
+            // 这是ViewModel，vue实例
+            // 连接view和model
+            new Vue({
+                el: '#app',//Vue实例挂载到id为app标签上
+                data: model//数据来源于model对象
+            });
+        </script>
+    </div>
+    <div id="app-if" name="app-if">
+        <h1>2、v-if指令-条件渲染</h1>
+        <p v-if="yesFlag">Yes!</p>
+        <p v-if="noFlag">No!</p>
+        <p v-if="age >= 25">Age: {{ age }}</p>
+        <p v-if="name.indexOf('jack') >= 0">Name: {{ name }}</p>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app-if',
+                data: {
+                    yesFlag: true,
+                    noFlag: false,
+                    age: 28,
+                    name: 'keepfool'
+                }
+            });
+        </script>
+    </div>
+    <div id="app-show" name="app-show">
+        <h1>3、v-show指令-条件渲染(与v-if区别：只是设置css的display属性为none，隐藏而已)</h1>
+        <p v-if="yesFlag">Yes!</p>
+        <p v-if="noFlag">No!</p>
+        <p v-if="age >= 25">Age: {{ age }}</p>
+        <p v-if="name.indexOf('jack') >= 0">Name: {{ name }}</p>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app-show',
+                data: {
+                    yesFlag: true,
+                    noFlag: false,
+                    age: 28,
+                    name: 'keepfool'
+                }
+            });
+        </script>
+    </div>
+    <div id="app-else" name="app-else">
+        <h1>4、v-else指令-紧跟v-if或者v-show之后</h1>
+        <p v-if="yesFlag">Yes!</p>
+        <p v-else>Yes else!</p>
+        <p v-if="noFlag">No!</p>
+        <p v-else>No else!</p>
+        <p v-if="age >= 25">Age: {{ age }}</p>
+        <p v-else>Age else!</p>
+        <p v-if="name.indexOf('jack') >= 0">Name: {{ name }}</p>
+        <p v-else>Name else!</p>
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app-else',
+                data: {
+                    yesFlag: true,
+                    noFlag: false,
+                    age: 28,
+                    name: 'keepfool'
+                }
+            });
+        </script>
+    </div>
+
+    <div id="app-for" name="app-for">
+        <h1>5、v-for指令-循环</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="person in people">
+                <td>{{ person.name }}</td>
+                <td>{{ person.age }}</td>
+                <td>{{ person.sex }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript">
+            var vm = new Vue({
+                el: '#app-for',
+                data:{
+                people: [{
+                    name: 'Jack',
+                    age: 30,
+                    sex: 'Male'
+                }, {
+                    name: 'Bill',
+                    age: 26,
+                    sex: 'Male'
+                }, {
+                    name: 'Tracy',
+                    age: 22,
+                    sex: 'Female'
+                }, {
+                    name: 'Chris',
+                    age: 36,
+                    sex: 'Male'
+                }]
+            }
+            });
+        </script>
+    </div>
+    <div id="app-bind" name="app-bind">
+        <h1>6、v-bind指令-高亮某个html标签的特性，如v-bind:class</h1>
+        <ul class="pagination">
+            <li v-for="n in pageCount">
+                <a href="javascripit:void(0)" v-bind:class="activeNumber === n + 1 ? 'active' : ''">{{ n + 1 }}</a>
+            </li>
+        </ul>
+        <script type="text/javascript">
+            var vm = new Vue({
+            el: '#app-bind',
+            data: {
+                activeNumber: 1,
+                pageCount: 10
+            }
+        })
+        </script>
+    </div>
+    <div id="app-on" name="app-on">
+        <h1>7、v-on指令-监听dom事件</h1>
+        <p><input type="text" v-model="message"></p>
+        <p>
+            <!--click事件直接绑定一个方法-->
+            <button v-on:click="greet">Greet</button>
+            <!--click事件使用内联语句-->
+            <button v-on:click="say('Hi')">Hi</button>
+        </p>
+        <script type="text/javascript">
+            var vm = new Vue({
+            el: '#app-on',
+            data: {
+                message: 'Hello, Vue.js!'
+            },
+            // 在 `methods` 对象中定义方法
+            methods: {
+                greet: function() {
+                    // // 方法内 `this` 指向 vm
+                    alert(this.message);
+                },
+                say: function(msg) {
+                    alert(this.message);
+                    alert(msg);
+                }
+            }
+        });
+    </script>
+    </div>
+</body>
+
+</html>
