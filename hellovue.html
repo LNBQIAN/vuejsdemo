@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   <title>vuejs</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>vuejs</title>
 </head>
+
 <body>
     <!--这是view-->
     <div id="app">
         {{message}}
     </div>
-   <script src="js/vue.min.js" type="text/javascript"></script>
-   <script type="text/javascript">
+    <script src="js/vue.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
         // 这是model
         var model={
             message:"hello vue.js"
         };
         // 这是ViewModel，vue实例
         // 连接view和model
-       new Vue({
-        el: '#app',
-        data: model
+        new Vue({
+            el: '#app',
+            data: model
         });
     </script>
 </body>
+
 </html>
